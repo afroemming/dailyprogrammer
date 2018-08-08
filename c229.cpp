@@ -1,15 +1,19 @@
 #include <cmath>
 #include <iostream>
+#include <functional>
+
+double find_fixed_point(std::function<double(double)> f, double startValue) {
+    double lastDelta = 3;
+    double lastValue = startValue;
+    while (lastDelta > 0.0000001) {
+        lastDelta = fabs(lastValue - f(lastValue));
+        lastValue = f(lastValue);
+    }
+    return lastValue;
+}
 
 int main() { 
     double lastValue;
     std::cin >> lastValue;
-    double lastDelta = 3;
-    int iterations = 0;
-    while (lastDelta > 0.000001) {
-        lastDelta = fabs(lastValue - cos(lastValue));
-        lastValue = cos(lastValue);
-        iterations++;
-    }
-    std::cout << "Dottie: Converged to " <<lastValue << " in " << iterations << " iterations.\n";
+    std::cout << "Dottie: Converged to " << find_fixed_point(([](double x)->double{return cos(x);}), 3) << '\n';
 }
