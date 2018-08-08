@@ -5,14 +5,12 @@
 int main() {
     //Get input
     std::vector <std::string> inputs;
-    std::string input = "default";
-    while (true) {
-        getline(std::cin, input);
-        if (input.empty()){ 
-            break;
-        }
+    std::string input;
+    while(getline(std::cin, input) && input.empty()){
         inputs.push_back(input);
     }
+
+
     for (std::string z: inputs) {
         std::cout << z;
         int lastCode = 0;
