@@ -3,35 +3,53 @@
 #include <vector>
 
 int main() {
-    //Get input
-    std::vector <std::string> inputs;
+    // Get input
+    std::vector <std::string> words;
     std::string input;
-    while(getline(std::cin, input) && input.empty()){
-        inputs.push_back(input);
+    while(getline(std::cin, input) && !input.empty()){
+        words.push_back(input);
     }
 
-
-    for (std::string z: inputs) {
-        std::cout << z;
-        int lastCode = 0;
-        bool isInOrder = true;
-        for (char x: z) {
-            x = tolower(x);
-            int y = x;
-            if (y < lastCode) {
+    // Check if in order
+    bool isInOrder;
+    bool isInReverseOrder;
+    int lastCode;
+    for (std::string word: words) {
+        lastCode = 0;
+        isInOrder = true;
+        for (char c: word){
+            int i = c;
+            if (c < lastCode) {
                 isInOrder = false;
                 break;
             }
-            else {
-                lastCode = y;
-            }
+            lastCode = c;
         }
-        std::cout << input;
+        
+        // Print output
+        std::cout << word;
         if (isInOrder) {
             std::cout << " IN ORDER\n";
         }
+        // Check if in reverse order
         else {
-            std::cout << " NOT IN ORDER\n";
+            isInReverseOrder = true;
+            lastCode = 128;
+            for (char c: word){
+                int i = c;
+                if (c > lastCode) {
+                    isInReverseOrder = false;
+                    break;
+                }
+                lastCode = c;
+            }
+
+            if (isInReverseOrder) {
+                std::cout << " REVERSE ORDER\n";
+            }
+            else {
+                std::cout << " NOT IN ORDER\n";
+            }    
         }
     }
 }
