@@ -1,31 +1,39 @@
 #include <iostream>
 #include <ctype.h>
-using namespace std;
+#include <vector>
 
 int main() {
-    string input = "default";
-    while (input != "") {
-        getline(cin, input);
-    }
-    int lastCode = 0;
-    bool isInOrder = true;
-    for (char x: input) {
-        x = tolower(x);
-        int y = x;
-        if (y < lastCode) {
-            isInOrder = false;
+    //Get input
+    std::vector <std::string> inputs;
+    std::string input = "default";
+    while (true) {
+        getline(std::cin, input);
+        if (input.empty()){ 
             break;
         }
+        inputs.push_back(input);
+    }
+    for (std::string z: inputs) {
+        std::cout << z;
+        int lastCode = 0;
+        bool isInOrder = true;
+        for (char x: z) {
+            x = tolower(x);
+            int y = x;
+            if (y < lastCode) {
+                isInOrder = false;
+                break;
+            }
+            else {
+                lastCode = y;
+            }
+        }
+        std::cout << input;
+        if (isInOrder) {
+            std::cout << " IN ORDER\n";
+        }
         else {
-            lastCode = y;
+            std::cout << " NOT IN ORDER\n";
         }
     }
-    cout << input;
-    if (isInOrder) {
-        cout << " IN ORDER\n";
-    }
-    else {
-        cout << " NOT IN ORDER\n";
-    }
-
 }
